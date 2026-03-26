@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./login";
+import Dashboard from "./dashboard";
+import Signin from "./signin";
+import Trackcalorie from "./calorietracker";
+import WorkoutTracker from "./trackworkout";
+import ProfilePage from "./profile"; 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path ="/track-calorie" element={<Trackcalorie />} />
+        <Route path="/register" element={<Signin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path = "/track-workout" element={<WorkoutTracker />} />
+        <Route path = "/profile" element = {<ProfilePage />} />
+        {/* Redirect root to login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
 }
 
