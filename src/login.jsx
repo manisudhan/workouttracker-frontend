@@ -4,16 +4,16 @@ import { GoogleLogin } from "@react-oauth/google";
 // Use the environment variable for your AWS IP, or default to localhost
 const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-// A simple dumbbell icon for the header
+// Dumbbell icon scaled up 50% to match the high-impact typography
 const DumbbellIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="48"
-    height="48"
+    width="84"
+    height="84"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#818cf8" 
-    strokeWidth="2"
+    stroke="#111827" 
+    strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
@@ -60,7 +60,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setMessage(""); 
+    setMessage("");
 
     try {
       const response = await fetch(`${API_BASE_URL}/login`, {
@@ -74,13 +74,12 @@ function Login() {
       if (response.ok) {
         if (data.token) {
           localStorage.setItem("token", data.token);
-          // Performs a full page reload and navigates to the dashboard.
           window.location.href = "/dashboard";
         } else {
           setMessage("Login successful, but no token received.");
         }
       } else {
-        setMessage(`❌ Login failed: ${data.message || 'Invalid credentials'}`);
+        setMessage(`❌ Login failed: ${data.message || "Invalid credentials"}`);
       }
     } catch (err) {
       console.error(err);
@@ -94,116 +93,146 @@ function Login() {
       alignItems: "center",
       justifyContent: "center",
       minHeight: "100vh",
-      backgroundColor: "#111827", 
-      color: "#f3f4f6", 
-      padding: "1rem", 
-      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
+      background: "radial-gradient(circle at top, #ffffff 0%, #f3f4f6 100%)", // Premium subtle gradient
+      padding: "2rem",
+      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      boxSizing: "border-box",
     },
     card: {
       width: "100%",
-      maxWidth: "28rem", 
-      padding: "2rem", 
-      backgroundColor: "#1f2937", 
-      borderRadius: "1rem", 
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)", 
+      maxWidth: "44rem", // Expanded width to support the 50% larger typography elegantly
+      padding: "5rem 4rem", // Spacious luxury padding 
+      backgroundColor: "#ffffff", 
+      borderRadius: "2rem", // Smoother, larger corner radii
+      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.03)",
+      borderTop: "12px solid #5EF522", // Stronger accent banner to match scale
+      boxSizing: "border-box",
     },
     header: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      marginBottom: "2rem", 
+      marginBottom: "3.5rem",
     },
     heading: {
-      marginTop: "1rem", 
-      fontSize: "1.875rem", 
-      fontWeight: "800", 
+      marginTop: "1.75rem",
+      fontSize: "3.5rem", // ~56px (50%+ increase from 2.25rem)
+      fontWeight: "900",
       textAlign: "center",
-      color: "#ffffff", 
+      color: "#111827", 
+      letterSpacing: "-0.04em",
+      textTransform: "uppercase",
+      lineHeight: "1.1",
     },
     subheading: {
-      marginTop: "0.5rem", 
+      marginTop: "1rem",
       textAlign: "center",
-      fontSize: "0.875rem", 
-      color: "#9ca3af", 
+      fontSize: "1.75rem", // ~28px (50% increase from 1.125rem)
+      color: "#4b5563", 
+      fontWeight: "400",
     },
     form: {
-      marginBottom: "1.5rem", 
+      marginBottom: "2.5rem",
     },
     inputGroup: {
-      marginBottom: "1.5rem", 
+      marginBottom: "2.5rem",
     },
     input: {
       width: "100%",
-      padding: "0.75rem 1rem", 
-      fontSize: "1.125rem", 
-      backgroundColor: "#374151", 
-      border: "1px solid #4b5563", 
-      borderRadius: "0.5rem", 
-      color: "#ffffff", 
-      boxSizing: "border-box", 
-      marginTop: "1rem",
+      padding: "1.5rem 1.75rem", // Larger, comfortable padding for text scale
+      fontSize: "1.75rem", // ~28px (50% increase from 1.125rem)
+      backgroundColor: "#ffffff",
+      border: "2px solid #d1d5db", // Slightly thicker border for crispness at size
+      borderRadius: "1rem",
+      color: "#111827",
+      boxSizing: "border-box",
+      marginTop: "1.75rem",
+      transition: "all 0.2s ease",
+      outline: "none",
+      fontWeight: "500",
     },
     button: {
       width: "100%",
-      padding: "0.75rem 1rem", 
-      fontSize: "1.125rem", 
-      fontWeight: "600", 
-      color: "#ffffff", 
-      backgroundColor: "#4f46e5", 
-      borderRadius: "0.5rem", 
-      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)", 
+      padding: "1.5rem 1.75rem", 
+      fontSize: "1.75rem", // ~28px (50% increase from 1.125rem)
+      fontWeight: "900",
+      color: "#111827", 
+      backgroundColor: "#5EF522", 
+      borderRadius: "1rem",
+      boxShadow: "0 10px 25px -4px rgba(94, 245, 34, 0.45)", 
       border: "none",
       cursor: "pointer",
-      transition: "background-color 0.2s",
+      transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+      textTransform: "uppercase",
+      letterSpacing: "0.08em",
     },
     message: {
       textAlign: "center",
-      fontWeight: "500", 
-      marginTop: "1.5rem",
-      color: "#f87171", 
+      fontWeight: "700",
+      fontSize: "1.5rem", // Increased 50%
+      marginTop: "2rem",
+      padding: "1.5rem",
+      backgroundColor: "#fef2f2",
+      color: "#ef4444",
+      borderRadius: "1rem",
+      border: "2px solid #fecaca",
     },
     messageSuccess: {
       textAlign: "center",
-      fontWeight: "500",
-      marginTop: "1.5rem",
-      color: "#34d399", 
+      fontWeight: "700",
+      fontSize: "1.5rem", // Increased 50%
+      marginTop: "2rem",
+      padding: "1.5rem",
+      backgroundColor: "#ecfdf5",
+      color: "#10b981",
+      borderRadius: "1rem",
+      border: "2px solid #a7f3d0",
     },
     footer: {
       textAlign: "center",
-      marginTop: "1.5rem",
+      marginTop: "3.5rem",
+      paddingTop: "3rem",
+      borderTop: "2px solid #f3f4f6",
     },
     footerText: {
-      fontSize: "0.875rem", 
-      color: "#9ca3af", 
+      fontSize: "1.5rem", // ~24px (50% increase from 1.05rem)
+      color: "#4b5563",
     },
     footerLink: {
-      fontWeight: "500", 
-      color: "#818cf8", 
-      textDecoration: "none",
+      fontWeight: "800",
+      color: "#111827",
+      textDecoration: "underline",
+      textDecorationColor: "#5EF522", 
+      textDecorationThickness: "4px", // Thicker underline matches larger size
+      textUnderlineOffset: "6px",
+    },
+    googleWrapper: {
+      marginTop: "2.5rem",
+      transform: "scale(1.25)", // Visually scales up the Google Identity platform button smoothly
+      transformOrigin: "center",
+      display: "flex",
+      justifyContent: "center"
     }
   };
-  
-  const messageStyle = (message.startsWith('❌') || message.startsWith('⚠️')) 
-    ? styles.message 
-    : styles.messageSuccess;
+
+  const messageStyle =
+    message.startsWith("❌") || message.startsWith("⚠️")
+      ? styles.message
+      : styles.messageSuccess;
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.header}>
           <DumbbellIcon />
-          <h2 style={styles.heading}>
-            Welcome Back, Lifter
-          </h2>
-          <p style={styles.subheading}>
-            Sign in to track your progress
-          </p>
+          <h2 style={styles.heading}>Welcome Back, Lifter</h2>
+          <p style={styles.subheading}>Sign in to track your progress</p>
         </div>
-        
+
         <form onSubmit={handleLogin} style={styles.form}>
           <div style={styles.inputGroup}>
             <div>
-              <label htmlFor="username" style={{ display: 'none' }}>
+              <label htmlFor="username" style={{ display: "none" }}>
                 Username
               </label>
               <input
@@ -215,11 +244,19 @@ function Login() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
-                style={{...styles.input, marginTop: 0}} 
+                style={{ ...styles.input, marginTop: 0 }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
             <div>
-              <label htmlFor="password" style={{ display: 'none' }}>
+              <label htmlFor="password" style={{ display: "none" }}>
                 Password
               </label>
               <input
@@ -232,6 +269,14 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 style={styles.input}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
           </div>
@@ -240,42 +285,44 @@ function Login() {
             <button
               type="submit"
               style={styles.button}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#6366f1'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4f46e5'}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = "#4fe313";
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 14px 30px -2px rgba(94, 245, 34, 0.55)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = "#5EF522";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 10px 25px -4px rgba(94, 245, 34, 0.45)";
+              }}
+              onMouseDown={(e) => {
+                e.currentTarget.style.transform = "translateY(1px)";
+              }}
             >
               Log In
             </button>
           </div>
         </form>
 
-        {message && (
-          <p style={messageStyle}>
-            {message}
-          </p>
-        )}
+        {message && <p style={messageStyle}>{message}</p>}
+
+        <div style={styles.googleWrapper}>
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={() => setMessage("❌ Google Login Failed")}
+            theme="outline" 
+            size="large"
+            width="340px" // Adjusted width mapping inside scaled wrapper
+          />
+        </div>
 
         <div style={styles.footer}>
           <p style={styles.footerText}>
             Not a member?{" "}
-            <a
-              href="/register"
-              style={styles.footerLink}
-              onMouseOver={(e) => e.currentTarget.style.color = '#a5b4fc'}
-              onMouseOut={(e) => e.currentTarget.style.color = '#818cf8'}
-            >
+            <a href="/register" style={styles.footerLink}>
               Sign up now
             </a>
           </p>
-        </div>
-        
-        <div style={{ marginTop: "1rem", textAlign: "center" }}>
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => setMessage("❌ Google Login Failed")}
-            theme="filled_blue"
-            size="large"
-            width="100%"
-          />
         </div>
       </div>
     </div>

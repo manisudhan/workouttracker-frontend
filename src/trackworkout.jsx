@@ -198,29 +198,32 @@ const WorkoutTracker = () => {
       return <p style={styles.emptyText}>No data logged for this exercise yet.</p>;
     }
 
-    const axisStyle = { fontSize: 18, fill: '#9ca3af', fontWeight: '600' };
+    // Light theme axis styling
+    const axisStyle = { fontSize: 18, fill: '#6b7280', fontWeight: '600' };
 
     if (chartData.length === 1) {
       return (
-        <ResponsiveContainer width="100%" height={450}>
+        <ResponsiveContainer width="100%" height={500}>
           <BarChart data={chartData} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
             <defs>
               <linearGradient id="colorVolume" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#818cf8" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#818cf8" stopOpacity={0.2}/>
+                <stop offset="5%" stopColor="#5EF522" stopOpacity={0.8}/>
+                <stop offset="95%" stopColor="#5EF522" stopOpacity={0.3}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
             <XAxis dataKey="date" stroke="#9ca3af" tick={axisStyle} tickMargin={10} />
             <YAxis stroke="#9ca3af" tick={axisStyle} />
-            <Tooltip content={<CustomTooltip />} cursor={{fill: '#374151'}} />
+            <Tooltip content={<CustomTooltip />} cursor={{fill: '#f3f4f6'}} />
             <Legend 
               wrapperStyle={{ paddingTop: "30px" }}
-              formatter={(value) => <span style={{ color: '#9ca3af', fontSize: '22px', fontWeight: 'bold' }}>{value}</span>} 
+              formatter={(value) => <span style={{ color: '#4b5563', fontSize: '22px', fontWeight: 'bold' }}>{value}</span>} 
             />
             <Bar 
               dataKey="volume" 
               fill="url(#colorVolume)"
+              stroke="#111827" // Dark sleek border to pop out
+              strokeWidth={3}
               name="Total Volume (kg)"
               radius={[10, 10, 0, 0]} 
               barSize={80}
@@ -231,31 +234,31 @@ const WorkoutTracker = () => {
     }
 
     return (
-      <ResponsiveContainer width="100%" height={450}>
+      <ResponsiveContainer width="100%" height={500}>
         <AreaChart data={chartData} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
           <defs>
             <linearGradient id="colorArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#818cf8" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="#818cf8" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#5EF522" stopOpacity={0.5}/>
+              <stop offset="95%" stopColor="#5EF522" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
           <XAxis dataKey="date" stroke="#9ca3af" tick={axisStyle} tickMargin={10} />
           <YAxis stroke="#9ca3af" tick={axisStyle} />
           <Tooltip content={<CustomTooltip />} />
           <Legend 
             wrapperStyle={{ paddingTop: "30px" }}
-            formatter={(value) => <span style={{ color: '#9ca3af', fontSize: '22px', fontWeight: 'bold' }}>{value}</span>} 
+            formatter={(value) => <span style={{ color: '#4b5563', fontSize: '22px', fontWeight: 'bold' }}>{value}</span>} 
           />
           <Area
             type="monotone"
             dataKey="volume"
-            stroke="#818cf8"
+            stroke="#111827" // Sharp dark line contrast
             strokeWidth={4}
             fillOpacity={1}
             fill="url(#colorArea)"
             name="Total Volume (kg)"
-            activeDot={{ r: 10, stroke: '#ffffff', strokeWidth: 3 }}
+            activeDot={{ r: 10, stroke: '#5EF522', strokeWidth: 4, fill: '#111827' }}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -266,9 +269,9 @@ const WorkoutTracker = () => {
     <div style={styles.pageContainer}>
       <Navigate />
       <div style={styles.container}>
-        <h1 style={styles.title}>🏋️ Workout Tracker</h1>
+        <h1 style={styles.title}>🏋️ WORKOUT TRACKER</h1>
 
-        <div style={styles.inputSection}>
+        <div style={styles.sectionCard}>
           <h2 style={styles.sectionTitle}>Log a New Set</h2>
           <form onSubmit={handleLogSubmit} style={styles.form}>
             <div style={styles.inputContainer}>
@@ -281,6 +284,14 @@ const WorkoutTracker = () => {
                   placeholder="Exercise (e.g., Bench Press)"
                   style={{ ...styles.input, width: "100%", boxSizing: "border-box" }}
                   autoComplete="off"
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#5EF522";
+                    e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#d1d5db";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
                 {suggestions.length > 0 && (
                   <ul style={styles.suggestionsList}>
@@ -289,7 +300,7 @@ const WorkoutTracker = () => {
                         key={ex.id}
                         style={styles.suggestionItem}
                         onClick={() => handleSuggestionClick(ex.name)}
-                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#4b5563'}
+                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f3f4f6'}
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
                         {ex.name}
@@ -306,6 +317,14 @@ const WorkoutTracker = () => {
                 onChange={handleLogChange}
                 placeholder="Reps"
                 style={{ ...styles.input, ...styles.numberInput }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
               />
               <input
                 name="weight"
@@ -315,14 +334,31 @@ const WorkoutTracker = () => {
                 onChange={handleLogChange}
                 placeholder="Weight (kg)"
                 style={{ ...styles.input, ...styles.numberInput }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
             <div style={styles.buttonContainer}>
               <button 
                 type="submit" 
                 style={{ ...styles.button, ...styles.addButton }}
-                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#6366f1'}
-                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4f46e5'}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#4fe313';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px -4px rgba(94, 245, 34, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = '#5EF522';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(94, 245, 34, 0.2)';
+                }}
+                onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(1px)'}
               >
                 Log Set
               </button>
@@ -332,7 +368,7 @@ const WorkoutTracker = () => {
           {message && <p style={styles.message}>{message}</p>}
         </div>
 
-        <div style={styles.resultsContainer}>
+        <div style={styles.sectionCard}>
           <h2 style={styles.sectionTitle}>Progress Visualization</h2>
           <div style={styles.chartControls}>
             <label htmlFor="exercise-select" style={styles.label}>Exercise:</label>
@@ -341,6 +377,14 @@ const WorkoutTracker = () => {
               value={selectedExercise}
               onChange={(e) => setSelectedExercise(e.target.value)}
               style={styles.select}
+              onFocus={(e) => {
+                e.target.style.borderColor = "#5EF522";
+                e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#d1d5db";
+                e.target.style.boxShadow = "none";
+              }}
             >
               <option value="" disabled>-- Select Exercise --</option>
               {exerciseList.map((name) => (
@@ -363,6 +407,7 @@ const WorkoutTracker = () => {
   );
 };
 
+// Light theme custom tooltip
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -375,38 +420,45 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-// --- MASSIVELY UPSCALED STYLES ---
+// --- FLUID WIDESCREEN & PREMIUM LIGHT THEME ---
 const styles = {
   pageContainer: {
     minHeight: "100vh",
-    backgroundColor: "#111827",
-    color: "#f3f4f6",
-    fontFamily: "system-ui, -apple-system, sans-serif",
+    background: "radial-gradient(circle at top, #ffffff 0%, #f3f4f6 100%)",
+    color: "#111827",
+    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    paddingBottom: "60px"
   },
   container: {
-    maxWidth: "90rem", 
+    width: "96%",        // Expands on big monitors
+    maxWidth: "1800px",  // Caps at ultra-widescreen size
     margin: "0 auto",
-    padding: "60px 40px",
+    padding: "2rem 1rem",
   },
   title: {
-    fontSize: "4.5rem", // EXTRA MASSIVE
+    color: "#111827",
     fontWeight: "900",
+    fontSize: "4.5rem", 
+    margin: "2rem 0 3rem 0",
+    letterSpacing: "-0.04em",
     textAlign: "center",
-    marginBottom: "60px",
-    letterSpacing: "-0.025em",
   },
-  inputSection: {
-    backgroundColor: "#1f2937",
-    padding: "50px",
-    borderRadius: "24px",
-    border: "1px solid #374151",
-    marginBottom: "40px",
+  sectionCard: {
+    backgroundColor: "#ffffff",
+    padding: "3.5rem 4rem",
+    borderRadius: "2rem",
+    marginBottom: "3rem",
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.03)",
+    borderTop: "8px solid #5EF522",
   },
   sectionTitle: {
+    color: "#111827",
     fontSize: "2.5rem",
     fontWeight: "800",
-    marginBottom: "40px",
-    color: "#ffffff",
+    marginBottom: "3rem",
+    paddingBottom: "1.5rem",
+    borderBottom: "2px solid #f3f4f6",
+    letterSpacing: "-0.02em",
   },
   form: {
     display: 'flex',
@@ -415,19 +467,20 @@ const styles = {
   },
   inputContainer: {
     display: "flex",
-    gap: "20px",
+    gap: "2.5rem",
     flexWrap: "wrap",
   },
   input: {
-    height: "80px", // CHUNKIER
-    padding: "0 30px",
+    height: "80px",
+    padding: "0 1.5rem",
     fontSize: "1.75rem",
-    borderRadius: "16px",
-    border: "3px solid #374151",
-    backgroundColor: "#111827",
-    color: "#ffffff",
+    borderRadius: "1rem",
+    border: "2px solid #d1d5db",
+    backgroundColor: "#ffffff",
+    color: "#111827",
     outline: "none",
-    transition: "border-color 0.2s",
+    transition: "all 0.2s ease",
+    fontWeight: "600",
   },
   textInput: { flex: "2 1 400px" },
   numberInput: { flex: "1 1 180px" },
@@ -437,96 +490,128 @@ const styles = {
     top: "100%",
     left: 0,
     right: 0,
-    backgroundColor: "#1f2937",
-    border: "3px solid #374151",
-    borderRadius: "16px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #d1d5db",
+    borderRadius: "1rem",
     marginTop: "8px",
     listStyle: "none",
     padding: "10px",
     maxHeight: "350px",
     overflowY: "auto",
     zIndex: 100,
-    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.5)",
+    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
   },
   suggestionItem: {
-    padding: "20px",
-    borderRadius: "10px",
+    padding: "1rem 1.5rem",
+    borderRadius: "0.5rem",
     cursor: "pointer",
     fontSize: "1.5rem",
-    transition: "background 0.2s",
+    color: "#111827",
+    fontWeight: "500",
+    transition: "background 0.2s ease",
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "1rem",
   },
   button: {
     height: "80px",
-    padding: "0 60px",
+    padding: "0 4rem",
     fontSize: "1.75rem",
-    fontWeight: "800",
-    borderRadius: "16px",
+    fontWeight: "900",
+    borderRadius: "1rem",
     cursor: "pointer",
     border: "none",
-    transition: "transform 0.1s active",
+    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
   },
   addButton: {
-    backgroundColor: "#4f46e5",
-    color: "#ffffff",
-    width: "fit-content",
-    alignSelf: "center",
+    backgroundColor: "#5EF522",
+    color: "#111827",
+    boxShadow: "0 4px 6px -1px rgba(94, 245, 34, 0.2)",
   },
   error: {
-    backgroundColor: "#7f1d1d",
-    color: "#fecaca",
-    padding: "20px",
-    borderRadius: "12px",
-    fontSize: "1.5rem",
+    color: "#ef4444",
+    fontWeight: "700",
+    fontSize: "1.5rem", 
     textAlign: "center",
-    marginTop: "20px",
+    padding: "1.5rem",
+    backgroundColor: "#fef2f2", 
+    borderRadius: "1rem",
+    marginTop: "2rem",
+    border: "2px solid #fecaca"
   },
   message: {
-    backgroundColor: "#064e3b",
-    color: "#a7f3d0",
-    padding: "20px",
-    borderRadius: "12px",
-    fontSize: "1.5rem",
+    color: "#10b981",
+    fontWeight: "700",
+    fontSize: "1.5rem", 
     textAlign: "center",
-    marginTop: "20px",
-  },
-  resultsContainer: {
-    backgroundColor: "#1f2937",
-    padding: "50px",
-    borderRadius: "24px",
-    border: "1px solid #374151",
+    padding: "1.5rem",
+    backgroundColor: "#ecfdf5", 
+    borderRadius: "1rem",
+    marginTop: "2rem",
+    border: "2px solid #a7f3d0"
   },
   chartControls: {
     display: "flex",
     alignItems: "center",
-    gap: "25px",
-    marginBottom: "40px",
+    gap: "1.5rem",
+    marginBottom: "3rem",
+    flexWrap: "wrap",
   },
-  label: { fontSize: "2rem", fontWeight: "600", color: "#9ca3af" },
+  label: { 
+    fontSize: "1.75rem", 
+    fontWeight: "800", 
+    color: "#4b5563",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em"
+  },
   select: {
     height: "70px",
-    padding: "0 20px",
+    padding: "0 1.5rem",
     fontSize: "1.5rem",
-    borderRadius: "12px",
-    backgroundColor: "#111827",
-    color: "#ffffff",
-    border: "3px solid #374151",
+    borderRadius: "1rem",
+    backgroundColor: "#ffffff",
+    color: "#111827",
+    border: "2px solid #d1d5db",
     cursor: "pointer",
+    fontWeight: "600",
+    transition: "all 0.2s ease",
+    outline: "none",
+  },
+  chartSection: {
+    paddingTop: "2rem",
   },
   emptyText: {
-    fontSize: "2rem",
-    color: "#6b7280",
+    fontSize: "1.75rem",
+    color: "#9ca3af",
     textAlign: "center",
-    padding: "100px 0",
+    padding: "4rem 0",
+    fontStyle: "italic",
+    fontWeight: "500",
   },
   tooltipContent: {
-    backgroundColor: "#111827",
-    border: "2px solid #818cf8",
-    padding: "20px",
-    borderRadius: "12px",
-    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)",
+    backgroundColor: "#ffffff",
+    border: "2px solid #e5e7eb",
+    padding: "1.5rem",
+    borderRadius: "1rem",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
   },
-  tooltipLabel: { color: "#9ca3af", fontSize: "1.25rem", margin: "0 0 5px 0" },
-  tooltipIntro: { color: "#ffffff", fontSize: "2rem", fontWeight: "800", margin: 0 },
+  tooltipLabel: { 
+    color: "#6b7280", 
+    fontSize: "1.25rem", 
+    margin: "0 0 0.5rem 0",
+    fontWeight: "600",
+    textTransform: "uppercase"
+  },
+  tooltipIntro: { 
+    color: "#111827", 
+    fontSize: "2.25rem", 
+    fontWeight: "900", 
+    margin: 0 
+  },
 };
 
 export default WorkoutTracker;
