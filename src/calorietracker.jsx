@@ -389,10 +389,9 @@ const CalorieTracker = () => {
   const overBudget = netCalories > targetCalories;
   const caloriesOver = netCalories - targetCalories;
 
-  // Updated colors for the light theme
   const goalPieData = [
-    { name: "Net Eaten", value: netCalories, fill: "#5EF522" }, // Bright accent green
-    { name: "Remaining", value: remainingCalories, fill: "#e5e7eb" }, // Soft gray
+    { name: "Net Eaten", value: netCalories, fill: "#5EF522" }, 
+    { name: "Remaining", value: remainingCalories, fill: "#e5e7eb" }, 
   ];
 
   const GoalTooltip = ({ active, payload }) => {
@@ -630,8 +629,8 @@ const CalorieTracker = () => {
                       nameKey="name"
                       cx="50%"
                       cy="50%"
-                      innerRadius={90}
-                      outerRadius={130}
+                      innerRadius="65%"
+                      outerRadius="90%"
                       paddingAngle={5}
                       labelLine={false}
                       label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
@@ -642,8 +641,8 @@ const CalorieTracker = () => {
                           <text
                             x={x}
                             y={y}
-                            fill="#111827" // Dark text for readability on light themes
-                            fontSize="22"
+                            fill="#111827" 
+                            fontSize="clamp(1rem, 2vw, 1.5rem)" // FLUID
                             fontWeight="800"
                             textAnchor={x > cx ? "start" : "end"}
                             dominantBaseline="central"
@@ -658,7 +657,7 @@ const CalorieTracker = () => {
                       ))}
                     </Pie>
                     <Tooltip content={<GoalTooltip />} />
-                    <Legend formatter={(value) => <span style={{ color: "#4b5563", fontSize: "1.75rem", fontWeight: "600" }}>{value}</span>} />
+                    <Legend formatter={(value) => <span style={{ color: "#4b5563", fontSize: "clamp(1.1rem, 2vw, 1.75rem)", fontWeight: "600" }}>{value}</span>} />
                   </PieChart>
                 </ResponsiveContainer>
                 {overBudget && (
@@ -686,7 +685,7 @@ const CalorieTracker = () => {
               value={burnedInput}
               onChange={(e) => setBurnedInput(e.target.value)}
               placeholder="e.g., 300"
-              style={{ ...styles.input, width: "300px" }}
+              style={{ ...styles.input, width: "100%", maxWidth: "300px" }}
               onFocus={(e) => {
                 e.target.style.borderColor = "#f97316";
                 e.target.style.boxShadow = "0 0 0 6px rgba(249, 115, 22, 0.15)";
@@ -726,25 +725,25 @@ const CalorieTracker = () => {
   );
 };
 
-// --- FLUID WIDESCREEN & PREMIUM LIGHT THEME ---
+// --- FLUID WIDESCREEN & FLUID TYPOGRAPHY STYLES ---
 const styles = {
   pageContainer: {
     minHeight: "100vh",
     background: "radial-gradient(circle at top, #ffffff 0%, #f3f4f6 100%)",
     color: "#111827",
     fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    paddingBottom: "60px"
+    paddingBottom: "clamp(20px, 4vw, 60px)" // FLUID Padding
   },
   container: {
     width: "96%",
     maxWidth: "1800px",
     margin: "0 auto",
-    padding: "2rem 1rem",
+    padding: "clamp(1rem, 3vw, 2rem) 1rem", // FLUID Padding
   },
   title: {
     color: "#111827",
     fontWeight: "900",
-    fontSize: "4.5rem",
+    fontSize: "clamp(2.5rem, 6vw, 4.5rem)", // FLUID Typography
     margin: "2rem 0 3rem 0",
     textAlign: "center",
     letterSpacing: "-0.04em",
@@ -752,7 +751,7 @@ const styles = {
   },
   sectionCard: {
     backgroundColor: "#ffffff",
-    padding: "3.5rem 4rem",
+    padding: "clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 4rem)", // FLUID Padding
     borderRadius: "2rem",
     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.03)",
     marginBottom: "3rem",
@@ -760,16 +759,16 @@ const styles = {
   },
   sectionCardHalf: {
     backgroundColor: "#ffffff",
-    padding: "3.5rem 3.5rem",
+    padding: "clamp(1.5rem, 3vw, 3.5rem) clamp(1.5rem, 3vw, 3.5rem)", // FLUID Padding
     borderRadius: "2rem",
     boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
     border: "1px solid #e5e7eb"
   },
   sectionTitle: {
     color: "#111827",
-    fontSize: "2.5rem",
+    fontSize: "clamp(1.75rem, 4vw, 2.5rem)", // FLUID Typography
     fontWeight: "800",
-    marginBottom: "3rem",
+    marginBottom: "clamp(1.5rem, 3vw, 3rem)",
     paddingBottom: "1.5rem",
     borderBottom: "2px solid #f3f4f6",
     letterSpacing: "-0.02em"
@@ -779,17 +778,17 @@ const styles = {
     justifyContent: "flex-start",
     alignItems: "flex-start",
     marginBottom: "2rem",
-    gap: "2rem",
+    gap: "1.5rem",
     flexWrap: "wrap",
   },
   input: {
     padding: "0 1.5rem",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 3vw, 1.75rem)", // FLUID Typography
     borderRadius: "1rem",
     border: "2px solid #d1d5db",
     backgroundColor: "#ffffff",
     color: "#111827",
-    height: "80px",
+    height: "clamp(60px, 8vw, 80px)", // FLUID Height
     boxSizing: "border-box",
     width: "100%",
     outline: "none",
@@ -797,10 +796,10 @@ const styles = {
     fontWeight: "600"
   },
   foodInput: {
-    flex: "2 1 400px",
+    flex: "2 1 280px",
   },
   numberInput: {
-    flex: "1 1 200px",
+    flex: "1 1 150px",
   },
   autocompleteContainer: {
     position: "relative",
@@ -816,7 +815,7 @@ const styles = {
     marginTop: "8px",
     listStyle: "none",
     padding: "10px",
-    maxHeight: "350px",
+    maxHeight: "300px",
     overflowY: "auto",
     zIndex: 1000,
     boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
@@ -826,7 +825,7 @@ const styles = {
     padding: "1rem 1.5rem",
     cursor: "pointer",
     color: "#111827",
-    fontSize: "1.5rem",
+    fontSize: "clamp(1.1rem, 2vw, 1.5rem)", // FLUID Typography
     fontWeight: "500",
     borderRadius: "0.5rem",
     transition: "background 0.2s ease",
@@ -834,13 +833,13 @@ const styles = {
   buttonContainer: {
     display: "flex",
     justifyContent: "flex-start",
-    gap: "1.5rem",
+    gap: "1rem",
     flexWrap: "wrap",
   },
   button: {
-    height: "80px",
-    padding: "0 3rem",
-    fontSize: "1.75rem",
+    height: "clamp(60px, 8vw, 80px)", // FLUID Height
+    padding: "0 clamp(1.5rem, 4vw, 3rem)", // FLUID Padding
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
     fontWeight: "900",
     borderRadius: "1rem",
     cursor: "pointer",
@@ -848,6 +847,7 @@ const styles = {
     transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
     textTransform: "uppercase",
     letterSpacing: "0.08em",
+    flex: "1 1 auto",
   },
   addButton: {
     backgroundColor: "#5EF522",
@@ -861,14 +861,14 @@ const styles = {
   },
   customFormContainer: {
     marginTop: "2rem",
-    padding: "2.5rem",
+    padding: "clamp(1.5rem, 3vw, 2.5rem)", // FLUID Padding
     backgroundColor: "#f9fafb",
     borderRadius: "1.5rem",
     width: "100%",
     border: "1px solid #e5e7eb"
   },
   customFormTitle: {
-    fontSize: "2rem",
+    fontSize: "clamp(1.5rem, 3vw, 2rem)", // FLUID Typography
     marginTop: 0,
     color: "#111827",
     fontWeight: "800",
@@ -876,7 +876,7 @@ const styles = {
   },
   customFormLabel: {
     display: "block",
-    fontSize: "1.5rem",
+    fontSize: "clamp(1.1rem, 2vw, 1.5rem)", // FLUID Typography
     marginBottom: "0.75rem",
     color: "#4b5563",
     fontWeight: "600"
@@ -884,7 +884,7 @@ const styles = {
   error: {
     color: "#ef4444",
     fontWeight: "700",
-    fontSize: "1.5rem", 
+    fontSize: "clamp(1.1rem, 2vw, 1.5rem)", // FLUID Typography
     textAlign: "center",
     padding: "1.5rem",
     backgroundColor: "#fef2f2", 
@@ -894,13 +894,13 @@ const styles = {
   },
   totalsRow: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-    gap: "2.5rem",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "clamp(1.5rem, 3vw, 2.5rem)", // FLUID Gap
     margin: "3rem 0",
   },
   totalContainer: {
     backgroundColor: "#ffffff",
-    padding: "2.5rem",
+    padding: "clamp(1.5rem, 3vw, 2.5rem)", // FLUID Padding
     borderRadius: "1.5rem",
     textAlign: "center",
     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)",
@@ -910,7 +910,7 @@ const styles = {
   targetTotal: { borderTop: "8px solid #f59e0b" },
   proteinTotal: { borderTop: "8px solid #3b82f6" },
   totalLabel: {
-    fontSize: "1.5rem",
+    fontSize: "clamp(1.1rem, 2vw, 1.5rem)", // FLUID Typography
     fontWeight: "700",
     display: "block",
     color: "#6b7280",
@@ -919,27 +919,27 @@ const styles = {
     letterSpacing: "0.05em"
   },
   totalValue: {
-    fontSize: "4.5rem",
+    fontSize: "clamp(3rem, 8vw, 4.5rem)", // FLUID Typography
     fontWeight: "900",
     margin: "0 8px",
     color: "#111827",
     lineHeight: "1"
   },
   totalUnit: {
-    fontSize: "2rem",
+    fontSize: "clamp(1.25rem, 2.5vw, 2rem)", // FLUID Typography
     fontWeight: "600",
     color: "#9ca3af",
   },
   burnedSubtext: {
-    fontSize: "1.25rem",
+    fontSize: "clamp(0.9rem, 1.5vw, 1.25rem)", // FLUID Typography
     color: "#10b981",
     marginTop: "1rem",
     fontWeight: "700",
   },
   resultsContainer: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(450px, 1fr))",
-    gap: "3rem",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: "clamp(1.5rem, 4vw, 3rem)", // FLUID Gap
     textAlign: "left",
     marginBottom: "3rem"
   },
@@ -947,27 +947,27 @@ const styles = {
     listStyleType: "none",
     padding: 0,
     margin: 0,
-    maxHeight: "500px",
+    maxHeight: "400px",
     overflowY: "auto",
   },
   listItem: {
     backgroundColor: "#f9fafb",
     color: "#111827",
-    padding: "1.5rem 2rem",
+    padding: "clamp(1rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem)", // FLUID Padding
     borderRadius: "1rem",
     marginBottom: "1rem",
     border: "1px solid #e5e7eb",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
   },
   mealStats: {
     textAlign: "right",
   },
   proteinText: {
     color: "#3b82f6",
-    marginRight: "1.5rem",
+    marginRight: "clamp(0.5rem, 2vw, 1.5rem)", // FLUID Margin
     fontWeight: "800",
   },
   emptyText: {
@@ -975,7 +975,7 @@ const styles = {
     fontStyle: "italic",
     textAlign: "center",
     padding: "3rem 0",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
     fontWeight: "500"
   },
   tooltip: {
@@ -985,14 +985,14 @@ const styles = {
     borderRadius: "1rem",
     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
     color: "#111827",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
     fontWeight: "700",
   },
   overBudgetWarning: {
     textAlign: "center",
     color: "#ef4444",
     fontWeight: "800",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
     marginTop: "2rem",
     padding: "1rem",
     backgroundColor: "#fef2f2",
@@ -1002,7 +1002,7 @@ const styles = {
   workoutDescription: {
     color: "#4b5563", 
     marginBottom: "2rem",
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", // FLUID Typography
     fontWeight: "500"
   },
   workoutInputContainer: {
@@ -1015,7 +1015,7 @@ const styles = {
   },
   burnedText: {
     color: "#f97316",
-    fontSize: "2rem",
+    fontSize: "clamp(1.25rem, 3vw, 2rem)", // FLUID Typography
     marginTop: "2.5rem",
     fontWeight: "600"
   },
