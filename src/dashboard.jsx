@@ -143,57 +143,161 @@ function UserInfoForm() {
     ? styles.messageError 
     : styles.messageSuccess;
 
+  // Custom tooltips for the light theme chart
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={styles.tooltipContent}>
+          <p style={styles.tooltipLabel}>{label}</p>
+          <p style={styles.tooltipIntro}>{`${payload[0].value} kg`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div style={styles.pageContainer}>
       <Navigate />
       
       <div style={styles.container}>
-        <h2 style={styles.heading}>Your Fitness Profile</h2>
+        <h2 style={styles.heading}>YOUR FITNESS PROFILE</h2>
         <p style={styles.subheading}>Keep this up-to-date to get the most accurate tracking.</p>
 
-        <form onSubmit={handleProfileSubmit} style={styles.form}>
-          {/* Basic Info */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="height">Height (cm)</label>
-            <input id="height" type="number" value={height} onChange={(e) => setHeight(e.target.value)} style={styles.input} placeholder="e.g., 180" />
-          </div>
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="weight">Weight (kg)</label>
-            <input id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} style={styles.input} placeholder="e.g., 75" />
-          </div>
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="age">Age</label>
-            <input id="age" type="number" value={age} onChange={(e) => setAge(e.target.value)} style={styles.input} placeholder="e.g., 30" />
-          </div>
+        <div style={styles.sectionCard}>
+          <form onSubmit={handleProfileSubmit} style={styles.form}>
+            {/* Basic Info */}
+            <div style={styles.inputGroup}>
+              <label style={styles.label} htmlFor="height">Height (cm)</label>
+              <input 
+                id="height" 
+                type="number" 
+                value={height} 
+                onChange={(e) => setHeight(e.target.value)} 
+                style={styles.input} 
+                placeholder="e.g., 180" 
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
+              />
+            </div>
+            <div style={styles.inputGroup}>
+              <label style={styles.label} htmlFor="weight">Weight (kg)</label>
+              <input 
+                id="weight" 
+                type="number" 
+                value={weight} 
+                onChange={(e) => setWeight(e.target.value)} 
+                style={styles.input} 
+                placeholder="e.g., 75"
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
+              />
+            </div>
+            <div style={styles.inputGroup}>
+              <label style={styles.label} htmlFor="age">Age</label>
+              <input 
+                id="age" 
+                type="number" 
+                value={age} 
+                onChange={(e) => setAge(e.target.value)} 
+                style={styles.input} 
+                placeholder="e.g., 30"
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
+              />
+            </div>
 
-          {/* Calculated Field */}
-          <div style={styles.calcBox}>
-            <span style={styles.calcLabel}>Maintenance Calories</span>
-            <p style={styles.calcValue}>{maintenanceCalories} kcal/day</p>
-            <small style={styles.calcSubtext}>(Based on Harris-Benedict formula)</small>
-          </div>
+            {/* Calculated Field */}
+            <div style={styles.calcBox}>
+              <span style={styles.calcLabel}>Maintenance Calories</span>
+              <p style={styles.calcValue}>{maintenanceCalories} <span style={{fontSize: "2rem"}}>kcal/day</span></p>
+              <small style={styles.calcSubtext}>(Based on Harris-Benedict formula)</small>
+            </div>
 
-          {/* Goals */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="targetWeight">Target Weight (kg)</label>
-            <input id="targetWeight" type="number" value={targetWeight} onChange={(e) => setTargetWeight(e.target.value)} style={styles.input} placeholder="e.g., 70" />
-          </div>
-          <div style={styles.inputGroup}>
-            <label style={styles.label} htmlFor="targetCalories">Your Target Calories</label>
-            <input id="targetCalories" type="number" value={targetCalories} onChange={(e) => setTargetCalories(e.target.value)} style={styles.input} placeholder="e.g., 2000" />
-          </div>
+            {/* Goals */}
+            <div style={styles.inputGroup}>
+              <label style={styles.label} htmlFor="targetWeight">Target Weight (kg)</label>
+              <input 
+                id="targetWeight" 
+                type="number" 
+                value={targetWeight} 
+                onChange={(e) => setTargetWeight(e.target.value)} 
+                style={styles.input} 
+                placeholder="e.g., 70"
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
+              />
+            </div>
+            <div style={styles.inputGroup}>
+              <label style={styles.label} htmlFor="targetCalories">Your Target Calories</label>
+              <input 
+                id="targetCalories" 
+                type="number" 
+                value={targetCalories} 
+                onChange={(e) => setTargetCalories(e.target.value)} 
+                style={styles.input} 
+                placeholder="e.g., 2000"
+                onFocus={(e) => {
+                  e.target.style.borderColor = "#5EF522";
+                  e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "#d1d5db";
+                  e.target.style.boxShadow = "none";
+                }}
+              />
+            </div>
 
-          {/* Submit Button */}
-          <div style={styles.fullSpan}>
-            <button type="submit" style={styles.button} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#6366f1'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4f46e5'}>
-              Save Profile
-            </button>
-            {message && <p style={messageStyle(message)}>{message}</p>}
-          </div>
-        </form>
+            {/* Submit Button */}
+            <div style={styles.fullSpan}>
+              <button 
+                type="submit" 
+                style={styles.button} 
+                onMouseOver={(e) => {
+                  e.currentTarget.style.backgroundColor = '#4fe313';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px -4px rgba(94, 245, 34, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.backgroundColor = '#5EF522';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(94, 245, 34, 0.2)';
+                }}
+                onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(1px)'}
+              >
+                Save Profile
+              </button>
+              {message && <p style={messageStyle(message)}>{message}</p>}
+            </div>
+          </form>
+        </div>
 
         {/* --- NEW SECTION: WEIGHT TRACKER --- */}
-        <div style={styles.trackerSection}>
+        <div style={styles.sectionCard}>
           <h3 style={styles.subHeadingTitle}>📈 Weight Progress Tracker</h3>
           
           <form onSubmit={handleWeightSubmit} style={styles.trackerForm}>
@@ -202,15 +306,32 @@ function UserInfoForm() {
               step="0.1"
               value={dailyWeight} 
               onChange={(e) => setDailyWeight(e.target.value)} 
-              style={{...styles.input, flex: "1 1 250px"}} 
+              style={{...styles.input, flex: "1 1 300px"}} 
               placeholder="Log today's weight (kg)" 
               required
+              onFocus={(e) => {
+                e.target.style.borderColor = "#5EF522";
+                e.target.style.boxShadow = "0 0 0 6px rgba(94, 245, 34, 0.15)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "#d1d5db";
+                e.target.style.boxShadow = "none";
+              }}
             />
             <button 
               type="submit" 
               style={styles.smallButton}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#10b981'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#059669'}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = '#4fe313';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 25px -4px rgba(94, 245, 34, 0.4)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = '#5EF522';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(94, 245, 34, 0.2)';
+              }}
+              onMouseDown={(e) => e.currentTarget.style.transform = 'translateY(1px)'}
             >
               Log Weight
             </button>
@@ -222,14 +343,18 @@ function UserInfoForm() {
             {weightHistory.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={weightHistory} margin={{ top: 20, right: 30, left: -10, bottom: 10 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#4b5563" />
-                  <XAxis dataKey="date" stroke="#9ca3af" fontSize={18} tickMargin={10} />
-                  <YAxis stroke="#9ca3af" fontSize={18} domain={['dataMin - 2', 'auto']} tickMargin={10} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1f2937', borderColor: '#4b5563', color: '#fff', fontSize: '22px', borderRadius: '8px', padding: '16px' }}
-                    itemStyle={{ color: '#818cf8', fontWeight: 'bold' }}
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
+                  <XAxis dataKey="date" stroke="#9ca3af" tick={{ fill: '#6b7280', fontSize: 18, fontWeight: '600' }} tickMargin={15} />
+                  <YAxis stroke="#9ca3af" tick={{ fill: '#6b7280', fontSize: 18, fontWeight: '600' }} domain={['dataMin - 2', 'auto']} tickMargin={10} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#d1d5db', strokeWidth: 2 }} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="weight" 
+                    stroke="#111827" // Sharp dark line
+                    strokeWidth={4} 
+                    dot={{ r: 6, fill: '#5EF522', stroke: '#111827', strokeWidth: 2 }} // Green dots
+                    activeDot={{ r: 10, fill: '#5EF522', stroke: '#111827', strokeWidth: 3 }} 
                   />
-                  <Line type="monotone" dataKey="weight" stroke="#818cf8" strokeWidth={4} dot={{ r: 6, fill: '#818cf8' }} activeDot={{ r: 10 }} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -242,175 +367,228 @@ function UserInfoForm() {
   );
 }
 
-// --- MASSIVELY UPSCALED TEXT & RESPONSIVE STYLES ---
+// --- FLUID WIDESCREEN & PREMIUM LIGHT THEME ---
 const styles = {
   pageContainer: {
     minHeight: "100vh",
-    backgroundColor: "#111827",
-    color: "#f3f4f6",
-    fontFamily: "'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+    background: "radial-gradient(circle at top, #ffffff 0%, #f3f4f6 100%)",
+    color: "#111827",
+    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    paddingBottom: "60px"
   },
   container: {
-    maxWidth: "90rem", 
-    margin: "40px auto",
-    padding: "32px 40px",
-    backgroundColor: "#1f2937",
-    borderRadius: "16px",
-    boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+    width: "96%",
+    maxWidth: "1800px",
+    margin: "0 auto",
+    padding: "2rem 1rem",
   },
   heading: { 
-    fontSize: "3.5rem", 
-    fontWeight: "800", 
-    color: "#ffffff", 
-    marginBottom: "12px",
-    textAlign: "center"
+    fontSize: "4.5rem", 
+    fontWeight: "900", 
+    color: "#111827", 
+    margin: "2rem 0 1rem 0",
+    textAlign: "center",
+    letterSpacing: "-0.04em",
+    textTransform: "uppercase"
   },
   subheading: { 
-    marginBottom: "40px", 
-    fontSize: "1.5rem", 
-    color: "#9ca3af",
-    textAlign: "center"
+    marginBottom: "3rem", 
+    fontSize: "1.75rem", 
+    color: "#6b7280",
+    textAlign: "center",
+    fontWeight: "500"
+  },
+  sectionCard: {
+    backgroundColor: "#ffffff",
+    padding: "3.5rem 4rem",
+    borderRadius: "2rem",
+    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.03)",
+    marginBottom: "3rem",
+    borderTop: "8px solid #5EF522",
   },
   form: { 
     display: "grid", 
     gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", 
-    gap: "32px" 
+    gap: "2.5rem" 
   },
   inputGroup: { 
     display: "flex", 
     flexDirection: "column", 
-    gap: "12px" 
+    gap: "1rem" 
   },
   label: { 
-    fontSize: "24px", 
-    fontWeight: "600", 
-    color: "#d1d5db" 
+    fontSize: "1.5rem", 
+    fontWeight: "700", 
+    color: "#4b5563",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em"
   },
   input: {
     width: "100%", 
-    padding: "16px 20px", 
-    backgroundColor: "#374151", 
-    border: "2px solid #4b5563",
-    borderRadius: "8px", 
-    color: "#ffffff", 
+    padding: "0 1.5rem", 
+    backgroundColor: "#ffffff", 
+    border: "2px solid #d1d5db",
+    borderRadius: "1rem", 
+    color: "#111827", 
     boxSizing: "border-box", 
-    fontSize: "22px", 
-    height: "60px" 
+    fontSize: "1.75rem", 
+    height: "80px",
+    outline: "none",
+    transition: "all 0.2s ease",
+    fontWeight: "600"
   },
   calcBox: { 
-    padding: "24px", 
-    backgroundColor: "#312e81", 
-    borderRadius: "12px", 
+    padding: "2rem", 
+    backgroundColor: "#f9fafb", 
+    borderRadius: "1.5rem", 
     textAlign: "center", 
     display: "flex", 
     flexDirection: "column", 
     justifyContent: "center",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    borderLeft: "8px solid #5EF522",
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)"
   },
   calcLabel: {
-    fontSize: "24px",
-    fontWeight: "600",
-    color: "#a5b4fc"
+    fontSize: "1.5rem",
+    fontWeight: "700",
+    color: "#4b5563",
+    textTransform: "uppercase",
+    letterSpacing: "0.05em",
+    marginBottom: "0.5rem"
   },
   calcValue: { 
-    fontSize: "48px", 
-    fontWeight: "bold", 
-    margin: "8px 0", 
-    color: "#e0e7ff" 
+    fontSize: "4.5rem", 
+    fontWeight: "900", 
+    margin: "0", 
+    color: "#111827",
+    lineHeight: "1"
   },
   calcSubtext: { 
-    fontSize: "18px", 
-    color: "#a5b4fc" 
+    fontSize: "1.25rem", 
+    color: "#6b7280",
+    marginTop: "0.5rem",
+    fontWeight: "500"
   },
   fullSpan: { 
     gridColumn: "1 / -1", 
-    textAlign: "center" 
+    textAlign: "center",
+    marginTop: "2rem"
   },
   button: {
     width: "100%", 
-    maxWidth: "600px", 
-    padding: "16px 36px", 
-    fontSize: "24px", 
-    fontWeight: "bold", 
-    color: "#ffffff",
-    backgroundColor: "#4f46e5", 
-    borderRadius: "8px", 
+    maxWidth: "500px", 
+    padding: "0 3rem", 
+    fontSize: "1.75rem", 
+    fontWeight: "900", 
+    color: "#111827",
+    backgroundColor: "#5EF522", 
+    borderRadius: "1rem", 
     border: "none", 
     cursor: "pointer", 
-    transition: "0.2s", 
-    marginTop: "20px",
+    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)", 
+    height: "80px",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    boxShadow: "0 4px 6px -1px rgba(94, 245, 34, 0.2)"
   },
   messageError: { 
     textAlign: "center", 
     fontWeight: "700", 
-    marginTop: "20px", 
-    color: "#fca5a5",
-    backgroundColor: "#7f1d1d",
-    padding: "16px",
-    borderRadius: "8px",
-    fontSize: "22px"
+    marginTop: "2rem", 
+    color: "#ef4444",
+    backgroundColor: "#fef2f2",
+    padding: "1.5rem",
+    borderRadius: "1rem",
+    fontSize: "1.5rem",
+    border: "2px solid #fecaca",
+    maxWidth: "500px",
+    margin: "2rem auto 0 auto"
   },
   messageSuccess: { 
     textAlign: "center", 
     fontWeight: "700", 
-    marginTop: "20px", 
-    color: "#6ee7b7",
-    backgroundColor: "#064e3b",
-    padding: "16px",
-    borderRadius: "8px",
-    fontSize: "22px"
-  },
-  trackerSection: { 
-    marginTop: "60px",
-    backgroundColor: "#374151",
-    padding: "32px",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    marginTop: "2rem", 
+    color: "#10b981",
+    backgroundColor: "#ecfdf5",
+    padding: "1.5rem",
+    borderRadius: "1rem",
+    fontSize: "1.5rem",
+    border: "2px solid #a7f3d0",
+    maxWidth: "500px",
+    margin: "2rem auto 0 auto"
   },
   subHeadingTitle: { 
-    fontSize: "2.25rem", 
-    fontWeight: "700", 
-    color: "#ffffff", 
-    marginBottom: "24px",
-    borderBottom: "2px solid #4b5563",
-    paddingBottom: "12px"
+    fontSize: "2.5rem", 
+    fontWeight: "800", 
+    color: "#111827", 
+    marginBottom: "3rem",
+    borderBottom: "2px solid #f3f4f6",
+    paddingBottom: "1.5rem",
+    letterSpacing: "-0.02em"
   },
   trackerForm: { 
     display: "flex", 
-    gap: "16px", 
-    marginBottom: "32px",
+    gap: "1.5rem", 
+    marginBottom: "3rem",
     flexWrap: "wrap", 
   },
   smallButton: {
-    padding: "16px 28px", 
-    fontSize: "22px", 
-    fontWeight: "bold", 
-    color: "#ffffff",
-    backgroundColor: "#059669", 
-    borderRadius: "8px", 
+    padding: "0 3rem", 
+    fontSize: "1.75rem", 
+    fontWeight: "900", 
+    color: "#111827",
+    backgroundColor: "#5EF522", 
+    borderRadius: "1rem", 
     border: "none", 
     cursor: "pointer", 
-    transition: "0.2s", 
+    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)", 
     whiteSpace: "nowrap",
-    flex: "1 1 auto"
+    flex: "1 1 auto",
+    height: "80px",
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    boxShadow: "0 4px 6px -1px rgba(94, 245, 34, 0.2)"
   },
   chartContainer: { 
-    height: "450px", 
+    height: "500px", 
     width: "100%", 
-    backgroundColor: "#1f2937", 
-    borderRadius: "12px", 
-    padding: "24px", 
+    backgroundColor: "#ffffff", 
+    borderRadius: "1.5rem", 
+    padding: "2rem", 
     boxSizing: "border-box", 
     display: "flex", 
     alignItems: "center", 
     justifyContent: "center",
-    border: "2px solid #4b5563"
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)"
   },
   emptyChartText: { 
     color: "#9ca3af", 
     fontStyle: "italic",
-    fontSize: "24px" 
-  }
+    fontSize: "1.75rem",
+    fontWeight: "500" 
+  },
+  tooltipContent: {
+    backgroundColor: "#ffffff",
+    border: "2px solid #e5e7eb",
+    padding: "1.5rem",
+    borderRadius: "1rem",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+  },
+  tooltipLabel: { 
+    color: "#6b7280", 
+    fontSize: "1.25rem", 
+    margin: "0 0 0.5rem 0",
+    fontWeight: "600",
+    textTransform: "uppercase"
+  },
+  tooltipIntro: { 
+    color: "#111827", 
+    fontSize: "2.25rem", 
+    fontWeight: "900", 
+    margin: 0 
+  },
 };
 
 export default UserInfoForm;

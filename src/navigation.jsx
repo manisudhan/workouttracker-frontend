@@ -4,79 +4,97 @@ import { NavLink } from "react-router-dom";
 function Navigate() {
   const styles = {
     navBar: {
-      fontFamily: "'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif",
-      backgroundColor: "#1f2937", 
-      padding: "0 10px", // Reduced padding so it doesn't clip on small screens
+      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      backgroundColor: "#ffffff", 
       display: "flex",
-      justifyContent: "space-around", // Evenly spaces the links
-      flexWrap: "wrap", // CRITICAL: Allows links to drop to a new line on mobile
-      boxShadow: "0 4px 10px rgba(0,0,0,0.3)", 
-      borderBottom: "1px solid #374151", 
+      justifyContent: "flex-start", 
+      alignItems: "center",
+      flexWrap: "nowrap", 
+      overflowX: "auto", 
+      WebkitOverflowScrolling: "touch", 
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05)", 
+      borderBottom: "1px solid #e5e7eb", 
       width: "100%", 
       boxSizing: "border-box",
-    },
-    navLinkBase: {
-      textDecoration: "none",
-      color: "#9ca3af", 
-      fontWeight: "500",
-      // CRITICAL: clamp(min-size, preferred-size, max-size) 
-      // This automatically scales the text smoothly based on screen width!
-      fontSize: "clamp(1.1rem, 2.5vw, 1.75rem)", 
-      padding: "16px 20px", // Sane padding that works everywhere
-      flex: "1 1 auto", // CRITICAL: Tells the links to stretch and fill available space evenly
-      borderBottom: "3px solid transparent",
-      transition: "color 0.2s ease, border-bottom 0.2s ease",
-      textAlign: "center",
-      whiteSpace: "nowrap", // Prevents the words "Track Calorie" from stacking weirdly
-    },
-    navLinkActive: {
-      color: "#ffffff", 
-      borderBottom: "3px solid #4f46e5", 
+      padding: "0.75rem 1rem", // Added padding so the colored pills don't touch the edges
+      gap: "0.5rem", // Adds clean spacing between the links
+      scrollbarWidth: "none", 
+      msOverflowStyle: "none", 
     },
   };
 
   return (
-    <nav style={styles.navBar}>
-      <NavLink
-        to="/dashboard"
-        style={({ isActive }) => ({
-          ...styles.navLinkBase,
-          ...(isActive ? styles.navLinkActive : {}),
-        })}
-      >
-        Home
-      </NavLink>
+    <>
+      <style>
+        {`
+          /* Hides the horizontal scrollbar for a native app feel */
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
 
-      <NavLink
-        to="/track-calorie"
-        style={({ isActive }) => ({
-          ...styles.navLinkBase,
-          ...(isActive ? styles.navLinkActive : {}),
-        })}
-      >
-        Track Calorie
-      </NavLink>
+          /* Base styling for all navigation links */
+          .nav-item {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            padding: 0.875rem 2rem;
+            flex: 1 0 auto;
+            border-radius: 1rem; /* Creates the rounded pill shape */
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background-color: transparent;
+          }
 
-      <NavLink
-        to="/track-workout"
-        style={({ isActive }) => ({
-          ...styles.navLinkBase,
-          ...(isActive ? styles.navLinkActive : {}),
-        })}
-      >
-        Track Workout
-      </NavLink>
+          /* Smooth hover effect for inactive tabs */
+          .nav-item:hover:not(.active-tab) {
+            background-color: #f3f4f6;
+            color: #111827;
+            transform: translateY(-1px);
+          }
 
-      <NavLink
-        to="/profile"
-        style={({ isActive }) => ({
-          ...styles.navLinkBase,
-          ...(isActive ? styles.navLinkActive : {}),
-        })}
-      >
-        Profile
-      </NavLink>
-    </nav>
+          /* The massive pop of color for the active tab */
+          .nav-item.active-tab {
+            background-color: #5EF522;
+            color: #111827;
+            box-shadow: 0 6px 15px -3px rgba(94, 245, 34, 0.4);
+          }
+        `}
+      </style>
+
+      <nav style={styles.navBar} className="hide-scrollbar">
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) => isActive ? "nav-item active-tab" : "nav-item"}
+        >
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/track-calorie"
+          className={({ isActive }) => isActive ? "nav-item active-tab" : "nav-item"}
+        >
+          Track Calorie
+        </NavLink>
+
+        <NavLink
+          to="/track-workout"
+          className={({ isActive }) => isActive ? "nav-item active-tab" : "nav-item"}
+        >
+          Track Workout
+        </NavLink>
+
+        <NavLink
+          to="/profile"
+          className={({ isActive }) => isActive ? "nav-item active-tab" : "nav-item"}
+        >
+          Profile
+        </NavLink>
+      </nav>
+    </>
   );
 }
 
